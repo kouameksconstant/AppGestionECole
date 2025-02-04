@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,6 +15,7 @@ return new class extends Migration
             $table->string('name'); // Nom de l'étudiant
             $table->string('email')->unique(); // Email unique
             $table->date('birth_date'); // Date de naissance
+            $table->foreignId('class_id')->constrained('classes'); // Clé étrangère vers la table classes
             $table->timestamps(); // created_at et updated_at
         });
     }

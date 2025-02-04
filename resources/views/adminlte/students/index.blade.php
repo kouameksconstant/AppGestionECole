@@ -10,6 +10,20 @@
             </a>
         </div>
 
+        <!-- Barre de navigation des classes -->
+        <div class="mb-4">
+            <h5 class="text-primary"><i class="fas fa-filter"></i> Filtrer par classe</h5>
+            <div class="btn-group" role="group" aria-label="Classe de filtrage">
+                <a href="{{ route('students.index', ['class' => 'bts1']) }}" class="btn btn-outline-primary">BTS 1</a>
+                <a href="{{ route('students.index', ['class' => 'bts2']) }}" class="btn btn-outline-primary">BTS 2</a>
+                <a href="{{ route('students.index', ['class' => 'licence1']) }}" class="btn btn-outline-primary">Licence 1</a>
+                <a href="{{ route('students.index', ['class' => 'licence2']) }}" class="btn btn-outline-primary">Licence 2</a>
+                <a href="{{ route('students.index', ['class' => 'licence3']) }}" class="btn btn-outline-primary">Licence 3</a>
+                <a href="{{ route('students.index', ['class' => 'master1']) }}" class="btn btn-outline-primary">Master 1</a>
+                <a href="{{ route('students.index', ['class' => 'master2']) }}" class="btn btn-outline-primary">Master 2</a>
+            </div>
+        </div>
+
         <!-- Tableau des étudiants -->
         <div class="card shadow-lg border-0">
             <div class="card-header bg-primary text-white rounded-top">
@@ -27,6 +41,7 @@
                                 <th class="border">Numéro de téléphone</th>
                                 <th class="border">Lieu de naissance</th>
                                 <th class="border">Date de naissance</th>
+                                <th class="border">Classe</th> <!-- Nouvelle colonne pour la classe -->
                                 <th class="text-center border">Actions</th>
                             </tr>
                         </thead>
@@ -40,7 +55,14 @@
                                     <td class="border">{{ $student->tel_perso }}</td>
                                     <td class="border">{{ $student->lieu_naissance }}</td>
                                     <td class="border">{{ \Carbon\Carbon::parse($student->birth_date)->format('d/m/Y') }}</td>
-                                    <td class="text-center border">
+                                    <td class="border">
+                                        @if($student->classe) <!-- Vérification si la classe existe -->
+                                            <span class="badge bg-info text-white">{{ $student->classe->name }}</span> <!-- Affichage du nom de la classe avec une couleur de fond info -->
+                                        @else
+                                            <span class="badge bg-secondary text-white">Non assignée</span> <!-- Affichage d'un badge secondaire pour "Non assignée" -->
+                                        @endif
+                                    </td>
+                                    <td class="text-center border">  
                                         <!-- Boutons d'action -->
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('students.edit', $student->id) }}" class="btn btn-warning btn-sm" title="Modifier">
@@ -59,7 +81,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8" class="text-center text-muted border">
+                                    <td colspan="9" class="text-center text-muted border">
                                         <i class="fas fa-exclamation-circle"></i> Aucun étudiant trouvé.
                                     </td>
                                 </tr>
