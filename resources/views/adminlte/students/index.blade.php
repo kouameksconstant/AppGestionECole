@@ -12,10 +12,11 @@
                     <i class="fas fa-plus"></i>
                 </a>
 
-                <!-- Bouton pour créer une classe -->
-                <a href="{{ route('classes.create') }}" class="btn btn-primary btn-lg rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;" title="Créer une classe">
+                <!-- Bouton pour ouvrir la modal de création de classe -->
+                <button type="button" class="btn btn-primary btn-lg rounded-circle d-flex align-items-center justify-content-center" 
+                        style="width: 50px; height: 50px;" title="Créer une classe" data-bs-toggle="modal" data-bs-target="#createClassModal">
                     <i class="fas fa-layer-group"></i>
-                </a>
+                </button>
 
                 <!-- Bouton pour affecter un étudiant à une classe -->
                 <a href="{{ route('students.assign_class') }}" class="btn btn-warning btn-lg rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;" title="Affecter un étudiant à une classe">
@@ -23,26 +24,19 @@
                 </a>
             </div>
         </div>
-
-        <!-- Barre de navigation des classes -->
-        <div class="mb-4">
+    <!-- Barre de navigation des classes -->
+    <div class="mb-4">
             <h5 class="text-primary"><i class="fas fa-filter"></i> Filtrer par classe</h5>
             <div class="btn-group" role="group" aria-label="Classe de filtrage">
-                @php
-                    $classes = ['bts1' => 'BTS 1', 'bts2' => 'BTS 2', 'licence1' => 'Licence 1', 
-                                'licence2' => 'Licence 2', 'licence3' => 'Licence 3', 
-                                'master1' => 'Master 1', 'master2' => 'Master 2'];
-                @endphp
-
-                @foreach ($classes as $key => $label)
-                    <a href="{{ route('students.index', ['class' => $key]) }}" 
-                       class="btn {{ request('class') == $key ? 'btn-primary' : 'btn-outline-primary' }}">
-                        {{ $label }}
-                    </a>
-                @endforeach
+                <a href="{{ route('students.index', ['class' => 'bts1']) }}" class="btn btn-outline-primary">BTS 1</a>
+                <a href="{{ route('students.index', ['class' => 'bts2']) }}" class="btn btn-outline-primary">BTS 2</a>
+                <a href="{{ route('students.index', ['class' => 'licence1']) }}" class="btn btn-outline-primary">Licence 1</a>
+                <a href="{{ route('students.index', ['class' => 'licence2']) }}" class="btn btn-outline-primary">Licence 2</a>
+                <a href="{{ route('students.index', ['class' => 'licence3']) }}" class="btn btn-outline-primary">Licence 3</a>
+                <a href="{{ route('students.index', ['class' => 'master1']) }}" class="btn btn-outline-primary">Master 1</a>
+                <a href="{{ route('students.index', ['class' => 'master2']) }}" class="btn btn-outline-primary">Master 2</a>
             </div>
         </div>
-
         <!-- Tableau des étudiants -->
         <div class="card shadow-lg border-0">
             <div class="card-header bg-primary text-white rounded-top">
@@ -60,7 +54,7 @@
                                 <th class="border">Numéro de téléphone</th>
                                 <th class="border">Lieu de naissance</th>
                                 <th class="border">Date de naissance</th>
-                                <th class="border">Classe</th> <!-- Nouvelle colonne pour la classe -->
+                                <th class="border">Classe</th>
                                 <th class="text-center border">Actions</th>
                             </tr>
                         </thead>
@@ -82,13 +76,11 @@
                                         @endif
                                     </td>
                                     <td class="text-center border">  
-                                        <!-- Boutons d'action -->
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('students.edit', $student->id) }}" class="btn btn-warning btn-sm" title="Modifier">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="{{ route('students.destroy', $student->id) }}" method="POST" class="d-inline"
-                                                onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet étudiant ?');">
+                                            <form action="{{ route('students.destroy', $student->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet étudiant ?');">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" title="Supprimer">
@@ -109,13 +101,61 @@
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- Footer de la carte -->
-            <div class="card-footer bg-light text-center rounded-bottom">
-                @if ($students->hasPages())
-                    {{ $students->appends(['class' => request('class')])->links('pagination::bootstrap-5') }}
-                @endif
+   <!-- Modal de création de classe -->
+<div class="modal fade" id="createClassModal" tabindex="-1" aria-labelledby="createClassModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createClassModalLabel">Créer une nouvelle classe</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createClassForm">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="className" class="form-label">Nom de la classe</label>
+                        <input type="text" class="form-control" id="className" name="name" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Créer</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
+<script>
+    document.getElementById('createClassForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Récupérer les données du formulaire
+        let formData = new FormData(this);
+
+        // Effectuer une requête fetch pour soumettre les données
+        fetch("{{ route('classes.store') }}", {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Réponse:', data); // Vérifiez la réponse dans la console
+            if (data.success) {
+                // Redirection après succès
+                window.location.href = "{{ route('classes.index') }}"; 
+            } else {
+                alert('Erreur lors de la création de la classe');
+            }
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            alert('Une erreur s\'est produite. Veuillez réessayer.');
+        });
+    });
+</script>
+
 @endsection

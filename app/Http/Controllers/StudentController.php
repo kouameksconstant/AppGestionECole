@@ -143,4 +143,5 @@ public function storeAssignedClass(Request $request)
     return redirect()->route('students.index')->with('success', 'L\'étudiant a été assigné à une classe avec succès!');
 }
 
+
 }

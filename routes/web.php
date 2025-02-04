@@ -23,3 +23,6 @@ Route::get('/students/assign-class', [StudentController::class, 'assignClass'])-
 
 // Route pour traiter l'assignation de la classe à l'étudiant
 Route::post('/students/assign-class', [StudentController::class, 'storeAssignedClass'])->name('students.store_assign_class');
+
+// Route pour l'index des classes
+Route::get('/classes', [ClassController::class, 'index'])->name('classes.index');

@@ -4,60 +4,117 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Classe; // Assurez-vous que le modèle Classe existe
+use Illuminate\Support\Facades\Session;
 
 class ClassController extends Controller
 {
     /**
+     * Affiche la liste des classes.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index()
+    {
+        $classes = Classe::all(); // Récupère toutes les classes
+        return view('adminlte.classes.index', compact('classes'));
+    }
+
+    /**
      * Affiche la gestion d'une classe spécifique.
-     * 
+     *
      * @param  int  $class L'identifiant de la classe
      * @return \Illuminate\View\View
      */
     public function manage($class)
     {
-        // Récupérer la classe depuis la base de données
         $classData = Classe::find($class);
-        
-        // Si la classe n'existe pas, afficher une erreur 404
+
         if (!$classData) {
-            abort(404, 'Classe non trouvée');
+            return redirect()->route('classes.index')->with('error', 'Classe non trouvée!');
         }
 
-        // Retourner la vue avec les données de la classe
-        return view('class.manage', compact('classData'));
+        return view('adminlte.classe.manage', compact('classData'));
     }
 
     /**
      * Enregistrer une nouvelle classe dans la base de données.
-     * 
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        // Validation des données du formulaire
+        // Validation des données entrées
         $validated = $request->validate([
-            'name' => 'required|string|max:255', // Validation pour le nom
-            'description' => 'required|string|max:500', // Validation pour la description
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:500',
         ]);
 
-        // Créer une nouvelle instance de Classe
-        $class = new Classe();
-        $class->name = $validated['name']; // Assigner le nom de la classe
-        $class->description = $validated['description']; // Assigner la description
-        $class->save(); // Sauvegarder la classe dans la base de données
+        // Création de la classe
+        Classe::create($validated);
 
-        // Rediriger vers la liste des classes avec un message de succès
-        return redirect()->route('classe.index')->with('success', 'Classe créée avec succès!');
+        // Retourner une réponse avec un message de succès
+        return redirect()->route('classes.index')->with('success', 'Classe créée avec succès!');
     }
 
     /**
      * Afficher le formulaire de création d'une nouvelle classe.
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function create()
     {
-        return view('adminlte.classe.create');
+        return view('adminlte.classes.create');
+    }
+
+    /**
+     * Met à jour les informations d'une classe.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id L'identifiant de la classe
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, $id)
+    {
+        // Validation des données entrées
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:500',
+        ]);
+
+        // Trouver la classe à mettre à jour
+        $class = Classe::find($id);
+
+        if (!$class) {
+            return redirect()->route('classes.index')->with('error', 'Classe non trouvée!');
+        }
+
+        // Mise à jour de la classe
+        $class->update($validated);
+
+        // Retourner avec un message de succès
+        return redirect()->route('classes.index')->with('success', 'Classe mise à jour avec succès!');
+    }
+
+    /**
+     * Supprime une classe.
+     *
+     * @param  int  $id L'identifiant de la classe
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id)
+    {
+        // Trouver la classe à supprimer
+        $class = Classe::find($id);
+
+        if (!$class) {
+            return redirect()->route('classes.index')->with('error', 'Classe non trouvée!');
+        }
+
+        // Suppression de la classe
+        $class->delete();
+
+        // Retourner avec un message de succès
+        return redirect()->route('classes.index')->with('success', 'Classe supprimée avec succès!');
     }
 }
