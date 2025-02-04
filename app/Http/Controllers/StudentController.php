@@ -1,18 +1,31 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Classe; // Ajout de la classe Classe pour les relations
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class StudentController extends Controller
 {
     /**
-     * Affiche la liste des étudiants avec pagination.
+     * Affiche la liste des étudiants avec pagination et filtrage par classe.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::paginate(10); // Récupère les étudiants avec pagination (10 par page)
-        return view('adminlte.students.index', compact('students')); // Retourne la vue avec les étudiants
+        $class = $request->query('class'); // Récupère la classe sélectionnée
+
+        // Récupère les étudiants selon la classe sélectionnée avec pagination
+        $students = Student::with('classe') // Charge la relation classe
+            ->when($class, function ($query) use ($class) {
+                $query->whereHas('classe', function ($subQuery) use ($class) {
+                    $subQuery->where('name', $class);
+                });
+            })
+            ->paginate(10);
+
+        return view('adminlte.students.index', compact('students', 'class'));
     }
 
     /**
@@ -20,7 +33,8 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('adminlte.students.create'); // Retourne la vue pour créer un étudiant
+        $classes = Classe::all(); // Récupérer toutes les classes pour le formulaire
+        return view('adminlte.students.create', compact('classes'));
     }
 
     /**
@@ -28,21 +42,24 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        // Valider les données du formulaire
+        // Validation des données
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255', // Ajout du prénom
+            'prenom' => 'required|string|max:255',
             'email' => 'required|email|unique:students,email',
-            'tel_perso' => 'nullable|regex:/^[0-9]{10}$/', // Validation du téléphone
+            'tel_perso' => 'nullable|regex:/^[0-9]{10}$/',
             'birth_date' => 'required|date',
-            'lieu_naissance' => 'required|string|max:255', // Ajout du lieu de naissance
+            'lieu_naissance' => 'required|string|max:255',
+            'classe_id' => 'nullable|exists:classes,id' // Vérifie que la classe existe
         ]);
 
-        // Créer l'étudiant
-        Student::create($validated);
-
-        // Redirection avec message de succès
-        return redirect()->route('students.index')->with('success', 'Étudiant ajouté avec succès.');
+        try {
+            // Création de l'étudiant
+            Student::create($validated);
+            return redirect()->route('students.index')->with('success', 'Étudiant ajouté avec succès.');
+        } catch (QueryException $e) {
+            return back()->with('error', 'Une erreur s\'est produite lors de l\'enregistrement.');
+        }
     }
 
     /**
@@ -50,7 +67,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        return view('adminlte.students.show', compact('student')); // Retourne la vue pour afficher un étudiant
+        return view('adminlte.students.show', compact('student'));
     }
 
     /**
@@ -58,7 +75,8 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        return view('adminlte.students.edit', compact('student')); // Retourne la vue pour éditer un étudiant
+        $classes = Classe::all();
+        return view('adminlte.students.edit', compact('student', 'classes'));
     }
 
     /**
@@ -66,21 +84,23 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        // Valider les données du formulaire
+        // Validation des données
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255', // Ajout du prénom pour la mise à jour
+            'prenom' => 'required|string|max:255',
             'email' => 'required|email|unique:students,email,' . $student->id,
-            'tel_perso' => 'nullable|regex:/^[0-9]{10}$/', // Validation du téléphone
+            'tel_perso' => 'nullable|regex:/^[0-9]{10}$/',
             'birth_date' => 'required|date',
-            'lieu_naissance' => 'required|string|max:255', // Ajout du lieu de naissance pour la mise à jour
+            'lieu_naissance' => 'required|string|max:255',
+            'classe_id' => 'nullable|exists:classes,id'
         ]);
 
-        // Mettre à jour l'étudiant
-        $student->update($validated);
-
-        // Redirection avec message de succès
-        return redirect()->route('students.index')->with('success', 'Étudiant mis à jour avec succès.');
+        try {
+            $student->update($validated);
+            return redirect()->route('students.index')->with('success', 'Étudiant mis à jour avec succès.');
+        } catch (QueryException $e) {
+            return back()->with('error', 'Une erreur s\'est produite lors de la mise à jour.');
+        }
     }
 
     /**
@@ -88,10 +108,39 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        // Supprimer l'étudiant
-        $student->delete();
-
-        // Redirection avec message de succès
-        return redirect()->route('students.index')->with('success', 'Étudiant supprimé avec succès.');
+        try {
+            $student->delete();
+            return redirect()->route('students.index')->with('success', 'Étudiant supprimé avec succès.');
+        } catch (QueryException $e) {
+            return back()->with('error', 'Impossible de supprimer cet étudiant.');
+        }
     }
+    public function assignClass()
+{
+    // Récupérer toutes les classes disponibles
+    $classes = Classe::all(); 
+
+    // Récupérer tous les étudiants non encore assignés à une classe
+    $students = Student::whereNull('classe_id')->get();
+
+    // Retourner la vue avec les étudiants et les classes
+    return view('adminlte.students.assign-class', compact('students', 'classes'));
+}
+public function storeAssignedClass(Request $request)
+{
+    // Validation des données du formulaire
+    $validated = $request->validate([
+        'student_id' => 'required|exists:students,id',  // L'étudiant doit exister
+        'classe_id' => 'required|exists:classes,id',   // La classe doit exister
+    ]);
+
+    // Trouver l'étudiant et lui assigner la classe
+    $student = Student::find($validated['student_id']);
+    $student->classe_id = $validated['classe_id'];
+    $student->save();  // Sauvegarder l'étudiant avec la nouvelle classe
+
+    // Rediriger vers la liste des étudiants avec un message de succès
+    return redirect()->route('students.index')->with('success', 'L\'étudiant a été assigné à une classe avec succès!');
+}
+
 }

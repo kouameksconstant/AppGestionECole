@@ -1,26 +1,45 @@
-@extends('adminlte.layout') <!-- Utilise le layout AdminLTE -->
+@extends('adminlte.layout')
 
 @section('content')
     <div class="container mt-4">
-        <!-- Titre de la page -->
+        <!-- Titre de la page avec boutons circulaires -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="text-primary"><i class="fas fa-users"></i> Liste des Étudiants-ESGS</h1>
-            <a href="{{ route('students.create') }}" class="btn btn-success btn-lg">
-                <i class="fas fa-plus-circle"></i> Ajouter un étudiant
-            </a>
+
+            <div class="d-flex gap-2">
+                <!-- Bouton pour ajouter un étudiant -->
+                <a href="{{ route('students.create') }}" class="btn btn-success btn-lg rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;" title="Ajouter un étudiant">
+                    <i class="fas fa-plus"></i>
+                </a>
+
+                <!-- Bouton pour créer une classe -->
+                <a href="{{ route('classes.create') }}" class="btn btn-primary btn-lg rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;" title="Créer une classe">
+                    <i class="fas fa-layer-group"></i>
+                </a>
+
+                <!-- Bouton pour affecter un étudiant à une classe -->
+                <a href="{{ route('students.assign_class') }}" class="btn btn-warning btn-lg rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;" title="Affecter un étudiant à une classe">
+                    <i class="fas fa-user-plus"></i>
+                </a>
+            </div>
         </div>
 
         <!-- Barre de navigation des classes -->
         <div class="mb-4">
             <h5 class="text-primary"><i class="fas fa-filter"></i> Filtrer par classe</h5>
             <div class="btn-group" role="group" aria-label="Classe de filtrage">
-                <a href="{{ route('students.index', ['class' => 'bts1']) }}" class="btn btn-outline-primary">BTS 1</a>
-                <a href="{{ route('students.index', ['class' => 'bts2']) }}" class="btn btn-outline-primary">BTS 2</a>
-                <a href="{{ route('students.index', ['class' => 'licence1']) }}" class="btn btn-outline-primary">Licence 1</a>
-                <a href="{{ route('students.index', ['class' => 'licence2']) }}" class="btn btn-outline-primary">Licence 2</a>
-                <a href="{{ route('students.index', ['class' => 'licence3']) }}" class="btn btn-outline-primary">Licence 3</a>
-                <a href="{{ route('students.index', ['class' => 'master1']) }}" class="btn btn-outline-primary">Master 1</a>
-                <a href="{{ route('students.index', ['class' => 'master2']) }}" class="btn btn-outline-primary">Master 2</a>
+                @php
+                    $classes = ['bts1' => 'BTS 1', 'bts2' => 'BTS 2', 'licence1' => 'Licence 1', 
+                                'licence2' => 'Licence 2', 'licence3' => 'Licence 3', 
+                                'master1' => 'Master 1', 'master2' => 'Master 2'];
+                @endphp
+
+                @foreach ($classes as $key => $label)
+                    <a href="{{ route('students.index', ['class' => $key]) }}" 
+                       class="btn {{ request('class') == $key ? 'btn-primary' : 'btn-outline-primary' }}">
+                        {{ $label }}
+                    </a>
+                @endforeach
             </div>
         </div>
 
@@ -56,10 +75,10 @@
                                     <td class="border">{{ $student->lieu_naissance }}</td>
                                     <td class="border">{{ \Carbon\Carbon::parse($student->birth_date)->format('d/m/Y') }}</td>
                                     <td class="border">
-                                        @if($student->classe) <!-- Vérification si la classe existe -->
-                                            <span class="badge bg-info text-white">{{ $student->classe->name }}</span> <!-- Affichage du nom de la classe avec une couleur de fond info -->
+                                        @if($student->classe)
+                                            <span class="badge bg-info text-white">{{ $student->classe->name }}</span>
                                         @else
-                                            <span class="badge bg-secondary text-white">Non assignée</span> <!-- Affichage d'un badge secondaire pour "Non assignée" -->
+                                            <span class="badge bg-secondary text-white">Non assignée</span>
                                         @endif
                                     </td>
                                     <td class="text-center border">  
@@ -77,7 +96,7 @@
                                                 </button>
                                             </form>
                                         </div>
-                                    </td>
+                                    </td>  
                                 </tr>
                             @empty
                                 <tr>
@@ -94,7 +113,7 @@
             <!-- Footer de la carte -->
             <div class="card-footer bg-light text-center rounded-bottom">
                 @if ($students->hasPages())
-                    {{ $students->links('pagination::bootstrap-5') }} <!-- Pagination Bootstrap -->
+                    {{ $students->appends(['class' => request('class')])->links('pagination::bootstrap-5') }}
                 @endif
             </div>
         </div>
