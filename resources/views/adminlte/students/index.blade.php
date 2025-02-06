@@ -12,11 +12,11 @@
                     <i class="fas fa-plus"></i>
                 </a>
 
-                <!-- Bouton pour ouvrir la modal de création de classe -->
-                <button type="button" class="btn btn-primary btn-lg rounded-circle d-flex align-items-center justify-content-center" 
-                        style="width: 50px; height: 50px;" title="Créer une classe" data-bs-toggle="modal" data-bs-target="#createClassModal">
+                <!-- Bouton pour ouvrir la page de création de classe -->
+                <a href="{{ route('classes.create') }}" class="btn btn-primary btn-lg rounded-circle d-flex align-items-center justify-content-center" 
+                        style="width: 50px; height: 50px;" title="Créer une classe">
                     <i class="fas fa-layer-group"></i>
-                </button>
+                </a>
 
                 <!-- Bouton pour affecter un étudiant à une classe -->
                 <a href="{{ route('students.assign_class') }}" class="btn btn-warning btn-lg rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;" title="Affecter un étudiant à une classe">
@@ -24,8 +24,9 @@
                 </a>
             </div>
         </div>
-    <!-- Barre de navigation des classes -->
-    <div class="mb-4">
+
+        <!-- Barre de navigation des classes -->
+        <div class="mb-4">
             <h5 class="text-primary"><i class="fas fa-filter"></i> Filtrer par classe</h5>
             <div class="btn-group" role="group" aria-label="Classe de filtrage">
                 <a href="{{ route('students.index', ['class' => 'bts1']) }}" class="btn btn-outline-primary">BTS 1</a>
@@ -37,6 +38,7 @@
                 <a href="{{ route('students.index', ['class' => 'master2']) }}" class="btn btn-outline-primary">Master 2</a>
             </div>
         </div>
+
         <!-- Tableau des étudiants -->
         <div class="card shadow-lg border-0">
             <div class="card-header bg-primary text-white rounded-top">
@@ -104,58 +106,57 @@
         </div>
     </div>
 
-   <!-- Modal de création de classe -->
-<div class="modal fade" id="createClassModal" tabindex="-1" aria-labelledby="createClassModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createClassModalLabel">Créer une nouvelle classe</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="createClassForm">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="className" class="form-label">Nom de la classe</label>
-                        <input type="text" class="form-control" id="className" name="name" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Créer</button>
-                </form>
+    <!-- Modal de création de classe -->
+    <div class="modal fade" id="createClassModal" tabindex="-1" aria-labelledby="createClassModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createClassModalLabel">Créer une nouvelle classe</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createClassForm">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="className" class="form-label">Nom de la classe</label>
+                            <input type="text" class="form-control" id="className" name="name" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Créer</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    document.getElementById('createClassForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Récupérer les données du formulaire
-        let formData = new FormData(this);
+    <!-- Script JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('createClassForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log('Form submitted'); // Debugging log
 
-        // Effectuer une requête fetch pour soumettre les données
-        fetch("{{ route('classes.store') }}", {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-            },
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Réponse:', data); // Vérifiez la réponse dans la console
-            if (data.success) {
-                // Redirection après succès
-                window.location.href = "{{ route('classes.index') }}"; 
-            } else {
-                alert('Erreur lors de la création de la classe');
-            }
-        })
-        .catch(error => {
-            console.error('Erreur:', error);
-            alert('Une erreur s\'est produite. Veuillez réessayer.');
+                let formData = new FormData(this);
+
+                fetch("{{ route('classes.store') }}", {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response data:', data); // Debugging log
+                    if (data.success) {
+                        window.location.href = "{{ route('classes.index') }}"; 
+                    } else {
+                        alert('Erreur lors de la création de la classe : ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error); // Debugging log
+                });
+            });
         });
-    });
-</script>
-
+    </script>
 @endsection

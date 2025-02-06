@@ -38,6 +38,13 @@
                     </div>
                 </form>
             </div>
+            <!-- Bouton pour voir les classes existantes -->
+<div class="text-center mt-3">
+    <a href="{{ route('classes.index') }}" class="btn btn-outline-primary">
+        <i class="fas fa-list"></i> Voir les classes existantes
+    </a>
+</div>
+
         </div>
     </div>
 @endsection

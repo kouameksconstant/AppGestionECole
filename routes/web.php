@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentController;
@@ -19,10 +18,15 @@ Route::post('/classes/store', [ClassController::class, 'store'])->name('classes.
 
 // Route pour assigner une classe à un étudiant
 Route::get('/students/assign-class', [StudentController::class, 'assignClass'])->name('students.assign_class');
-// Route pour afficher le formulaire d'assignation
 
+// Route pour afficher le formulaire d'assignation
 // Route pour traiter l'assignation de la classe à l'étudiant
 Route::post('/students/assign-class', [StudentController::class, 'storeAssignedClass'])->name('students.store_assign_class');
 
 // Route pour l'index des classes
 Route::get('/classes', [ClassController::class, 'index'])->name('classes.index');
+
+// Ajoutez ces routes pour l'édition, la mise à jour et la suppression des classes
+Route::get('/classes/edit/{id}', [ClassController::class, 'edit'])->name('classes.edit');
+Route::post('/classes/update/{id}', [ClassController::class, 'update'])->name('classes.update');
+Route::delete('/classes/destroy/{id}', [ClassController::class, 'destroy'])->name('classes.destroy');

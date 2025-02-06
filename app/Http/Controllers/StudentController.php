@@ -115,7 +115,7 @@ class StudentController extends Controller
             return back()->with('error', 'Impossible de supprimer cet étudiant.');
         }
     }
-    public function assignClass()
+    public function assigneClass()
 {
     // Récupérer toutes les classes disponibles
     $classes = Classe::all(); 
@@ -139,9 +139,35 @@ public function storeAssignedClass(Request $request)
     $student->classe_id = $validated['classe_id'];
     $student->save();  // Sauvegarder l'étudiant avec la nouvelle classe
 
+
     // Rediriger vers la liste des étudiants avec un message de succès
     return redirect()->route('students.index')->with('success', 'L\'étudiant a été assigné à une classe avec succès!');
 }
+
+public function assignClass(Request $request)
+{
+    $request->validate([
+        'class_id' => 'required|exists:classes,id',
+        'student_id' => 'required|exists:students,id',
+    ]);
+
+    $student = Student::find($request->student_id);
+    $student->class_id = $request->class_id;
+    $student->save();
+
+    return redirect()->back()->with('success', 'L\'étudiant a été assigné avec succès !');
+}
+public function showAssignForm()
+{
+    // Récupère toutes les classes
+    $classes = Classe::all(); 
+
+    // Récupère tous les étudiants sans classe assignée (si applicable)
+    $students = Student::whereNull('class_id')->get(); 
+
+    return view('adminlte.students.assign-class', compact('classes', 'students'));
+}
+
 
 
 }

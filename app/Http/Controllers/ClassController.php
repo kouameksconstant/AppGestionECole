@@ -33,11 +33,11 @@ class ClassController extends Controller
             return redirect()->route('classes.index')->with('error', 'Classe non trouvée!');
         }
 
-        return view('adminlte.classe.manage', compact('classData'));
+        return view('adminlte.classes.manage', compact('classData'));
     }
 
     /**
-     * Enregistrer une nouvelle classe dans la base de données.
+     * Enregistre une nouvelle classe dans la base de données.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
@@ -47,7 +47,7 @@ class ClassController extends Controller
         // Validation des données entrées
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:500',
+            'description' => 'nullable|string|max:500',
         ]);
 
         // Création de la classe
@@ -58,7 +58,7 @@ class ClassController extends Controller
     }
 
     /**
-     * Afficher le formulaire de création d'une nouvelle classe.
+     * Affiche le formulaire de création d'une nouvelle classe.
      *
      * @return \Illuminate\View\View
      */
@@ -79,7 +79,7 @@ class ClassController extends Controller
         // Validation des données entrées
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:500',
+            'description' => 'nullable|string|max:500',
         ]);
 
         // Trouver la classe à mettre à jour
@@ -94,6 +94,23 @@ class ClassController extends Controller
 
         // Retourner avec un message de succès
         return redirect()->route('classes.index')->with('success', 'Classe mise à jour avec succès!');
+    }
+
+    /**
+     * Affiche le formulaire de modification d'une classe.
+     *
+     * @param  int  $id L'identifiant de la classe
+     * @return \Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $class = Classe::find($id);
+
+        if (!$class) {
+            return redirect()->route('classes.index')->with('error', 'Classe non trouvée!');
+        }
+
+        return view('adminlte.classes.edit', compact('class'));
     }
 
     /**

@@ -2,35 +2,56 @@
 
 @section('content')
     <div class="container mt-4">
-        <h1 class="text-primary">Liste des Classes</h1>
+        <h1 class="text-primary"><i class="fas fa-layer-group"></i> Liste des Classes</h1>
 
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nom</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($classes as $class)
-                    <tr>
-                        <td>{{ $class->id }}</td>
-                        <td>{{ $class->name }}</td>
-                        <td>{{ $class->description }}</td>
-                        <td>
-                            <!-- Liens d'édition et suppression -->
-                            <a href="{{ route('classes.edit', $class->id) }}" class="btn btn-warning btn-sm">Modifier</a>
-                            <form action="{{ route('classes.destroy', $class->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette classe ?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <!-- Afficher les messages de succès ou d'erreur -->
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <div class="row">
+            @foreach ($classes as $class)
+                <div class="col-md-4">
+                    <div class="card shadow-lg border-0 mb-4">
+                        <div class="card-body text-center">
+                            <!-- Icône et Nom de la Classe -->
+                            <div class="mb-3">
+                                <i class="fas fa-graduation-cap fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title text-uppercase font-weight-bold">{{ $class->name }}</h5>
+                            <p class="card-text text-muted">{{ $class->description }}</p>
+
+                            <!-- Boutons d'action -->
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="{{ route('classes.edit', $class->id) }}" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </a>
+                                <form action="{{ route('classes.destroy', $class->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette classe ?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Supprimer
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- Bouton Ajouter une classe -->
+        <div class="text-center mt-4">
+            <a href="{{ route('classes.create') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Ajouter une nouvelle classe
+            </a>
+        </div>
     </div>
 @endsection
