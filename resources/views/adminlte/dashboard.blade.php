@@ -90,119 +90,16 @@
             <!--end::Navbar Search-->
             <!--begin::Messages Dropdown Menu-->
             <li class="nav-item dropdown">
-              <a class="nav-link" data-bs-toggle="dropdown" href="#">
-                <i class="bi bi-chat-text"></i>
-                <span class="navbar-badge badge text-bg-danger">3</span>
-              </a>
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                <a href="#" class="dropdown-item">
-                  <!--begin::Message-->
-                  <div class="d-flex">
-                    <div class="flex-shrink-0">
-                      <img
-                        src="../../dist/assets/img/user1-128x128.jpg"
-                        alt="User Avatar"
-                        class="img-size-50 rounded-circle me-3"
-                      />
-                    </div>
-                    <div class="flex-grow-1">
-                      <h3 class="dropdown-item-title">
-                        Brad Diesel
-                        <span class="float-end fs-7 text-danger"
-                          ><i class="bi bi-star-fill"></i
-                        ></span>
-                      </h3>
-                      <p class="fs-7">Call me whenever you can...</p>
-                      <p class="fs-7 text-secondary">
-                        <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                      </p>
-                    </div>
-                  </div>
-                  <!--end::Message-->
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                  <!--begin::Message-->
-                  <div class="d-flex">
-                    <div class="flex-shrink-0">
-                      <img
-                        src="../../dist/assets/img/user8-128x128.jpg"
-                        alt="User Avatar"
-                        class="img-size-50 rounded-circle me-3"
-                      />
-                    </div>
-                    <div class="flex-grow-1">
-                      <h3 class="dropdown-item-title">
-                        John Pierce
-                        <span class="float-end fs-7 text-secondary">
-                          <i class="bi bi-star-fill"></i>
-                        </span>
-                      </h3>
-                      <p class="fs-7">I got your message bro</p>
-                      <p class="fs-7 text-secondary">
-                        <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                      </p>
-                    </div>
-                  </div>
-                  <!--end::Message-->
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                  <!--begin::Message-->
-                  <div class="d-flex">
-                    <div class="flex-shrink-0">
-                      <img
-                        src="../../dist/assets/img/user3-128x128.jpg"
-                        alt="User Avatar"
-                        class="img-size-50 rounded-circle me-3"
-                      />
-                    </div>
-                    <div class="flex-grow-1">
-                      <h3 class="dropdown-item-title">
-                        Nora Silvester
-                        <span class="float-end fs-7 text-warning">
-                          <i class="bi bi-star-fill"></i>
-                        </span>
-                      </h3>
-                      <p class="fs-7">The subject goes here</p>
-                      <p class="fs-7 text-secondary">
-                        <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                      </p>
-                    </div>
-                  </div>
-                  <!--end::Message-->
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-              </div>
+                
             </li>
             <!--end::Messages Dropdown Menu-->
             <!--begin::Notifications Dropdown Menu-->
             <li class="nav-item dropdown">
               <a class="nav-link" data-bs-toggle="dropdown" href="#">
                 <i class="bi bi-bell-fill"></i>
-                <span class="navbar-badge badge text-bg-warning">15</span>
+                <span class="navbar-badge badge text-bg-warning"></span>
               </a>
-              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                <span class="dropdown-item dropdown-header">15 Notifications</span>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                  <i class="bi bi-envelope me-2"></i> 4 new messages
-                  <span class="float-end text-secondary fs-7">3 mins</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                  <i class="bi bi-people-fill me-2"></i> 8 friend requests
-                  <span class="float-end text-secondary fs-7">12 hours</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                  <i class="bi bi-file-earmark-fill me-2"></i> 3 new reports
-                  <span class="float-end text-secondary fs-7">2 days</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer"> See All Notifications </a>
-              </div>
             </li>
             <!--end::Notifications Dropdown Menu-->
             <!--begin::Fullscreen Toggle-->
@@ -217,11 +114,11 @@
             <li class="nav-item dropdown user-menu">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <img
-                  src="../../dist/assets/img/user2-160x160.jpg"
+                  src="../../dist/assets/img/logo_esgs.jpg"
                   class="user-image rounded-circle shadow"
                   alt="User Image"
                 />
-                <span class="d-none d-md-inline">Alexander Pierce</span>
+                <span class="d-none d-md-inline">KM</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                 <!--begin::User Image-->
@@ -271,7 +168,7 @@
           <a href="./index.html" class="brand-link">
             <!--begin::Brand Image-->
             <img
-              src="../../dist/assets/img/AdminLTELogo.png"
+              src="../../dist/assets/img/logo_esgs.jpg"
               alt="AdminLTE Logo"
               class="brand-image opacity-75 shadow"
             />
@@ -323,163 +220,10 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a href="./generate/theme.html" class="nav-link">
-                  <i class="nav-icon bi bi-palette"></i>
-                  <p>Theme Generatce</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-box-seam-fill"></i>
-                  <p>
-                    Widgets
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="./widgets/small-box.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Small ESGS-yakro</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./widgets/info-box.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>information Box</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./widgets/cards.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>150 CArd</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-clipboard-fill"></i>
-                  <p>
-                    Layout Options
-                    <span class="nav-badge badge text-bg-secondary me-3">6</span>
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="./layout/unfixed-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Default Sidebar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/fixed-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Fixed Sidebar</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/layout-custom-area.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Layout <small>+ Custom Area </small></p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/sidebar-mini.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Sidebar Mini</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/collapsed-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Sidebar Mini <small>+ Collapsed</small></p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/logo-switch.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Sidebar Mini <small>+ Logo Switch</small></p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./layout/layout-rtl.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Layout RTL</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-tree-fill"></i>
-                  <p>
-                    UI Elements
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="./UI/general.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>General</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./UI/icons.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Icons</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./UI/timeline.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Timeline</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-pencil-square"></i>
-                  <p>
-                    Forms
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="./forms/general.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>General Elements</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-table"></i>
-                  <p>
-                    Tables
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="./tables/simple.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Simple Tables</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-header">EXAMPLES</li>
-              <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-box-arrow-in-right"></i>
                   <p>
-                    Auth
+                    Sécurité
                     <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>
@@ -488,7 +232,7 @@
                     <a href="#" class="nav-link">
                       <i class="nav-icon bi bi-box-arrow-in-right"></i>
                       <p>
-                        Version 1
+                        Authentification
                         <i class="nav-arrow bi bi-chevron-right"></i>
                       </p>
                     </a>
@@ -496,216 +240,22 @@
                       <li class="nav-item">
                         <a href="./examples/login.html" class="nav-link">
                           <i class="nav-icon bi bi-circle"></i>
-                          <p>Login</p>
+                          <p>Connexion</p>
                         </a>
                       </li>
                       <li class="nav-item">
                         <a href="./examples/register.html" class="nav-link">
                           <i class="nav-icon bi bi-circle"></i>
-                          <p>Register</p>
+                          <p>inscription</p>
                         </a>
                       </li>
                     </ul>
                   </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="nav-icon bi bi-box-arrow-in-right"></i>
-                      <p>
-                        Version 2
-                        <i class="nav-arrow bi bi-chevron-right"></i>
-                      </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                        <a href="./examples/login-v2.html" class="nav-link">
-                          <i class="nav-icon bi bi-circle"></i>
-                          <p>Login</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="./examples/register-v2.html" class="nav-link">
-                          <i class="nav-icon bi bi-circle"></i>
-                          <p>Register</p>
-                        </a>
-                      </li>
                     </ul>
                   </li>
-                  <li class="nav-item">
-                    <a href="./examples/lockscreen.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Lockscreen</p>
-                    </a>
-                  </li>
                 </ul>
               </li>
-              <li class="nav-header">DOCUMENTATIONS</li>
-              <li class="nav-item">
-                <a href="./docs/introduction.html" class="nav-link">
-                  <i class="nav-icon bi bi-download"></i>
-                  <p>Installation</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./docs/layout.html" class="nav-link">
-                  <i class="nav-icon bi bi-grip-horizontal"></i>
-                  <p>Layout</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./docs/color-mode.html" class="nav-link">
-                  <i class="nav-icon bi bi-star-half"></i>
-                  <p>Color Mode</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-ui-checks-grid"></i>
-                  <p>
-                    Components
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="./docs/components/main-header.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Main Header</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./docs/components/main-sidebar.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Main Sidebar</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-filetype-js"></i>
-                  <p>
-                    Javascript
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="./docs/javascript/treeview.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Treeview</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="./docs/browser-support.html" class="nav-link">
-                  <i class="nav-icon bi bi-browser-edge"></i>
-                  <p>Browser Support</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./docs/how-to-contribute.html" class="nav-link">
-                  <i class="nav-icon bi bi-hand-thumbs-up-fill"></i>
-                  <p>How To Contribute</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./docs/faq.html" class="nav-link">
-                  <i class="nav-icon bi bi-question-circle-fill"></i>
-                  <p>FAQ</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./docs/license.html" class="nav-link">
-                  <i class="nav-icon bi bi-patch-check-fill"></i>
-                  <p>License</p>
-                </a>
-              </li>
-              <li class="nav-header">MULTI LEVEL EXAMPLE</li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-circle-fill"></i>
-                  <p>Level 1</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-circle-fill"></i>
-                  <p>
-                    Level 1
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Level 2</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>
-                        Level 2
-                        <i class="nav-arrow bi bi-chevron-right"></i>
-                      </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                        <a href="#" class="nav-link">
-                          <i class="nav-icon bi bi-record-circle-fill"></i>
-                          <p>Level 3</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="#" class="nav-link">
-                          <i class="nav-icon bi bi-record-circle-fill"></i>
-                          <p>Level 3</p>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="#" class="nav-link">
-                          <i class="nav-icon bi bi-record-circle-fill"></i>
-                          <p>Level 3</p>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Level 2</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-circle-fill"></i>
-                  <p>Level 1</p>
-                </a>
-              </li>
-              <li class="nav-header">LABELS</li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-circle text-danger"></i>
-                  <p class="text">Important</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-circle text-warning"></i>
-                  <p>Warning</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-circle text-info"></i>
-                  <p>Informational</p>
-                </a>
-              </li>
-            </ul>
+    
             <!--end::Sidebar Menu-->
           </nav>
         </div>
@@ -723,7 +273,7 @@
               <div class="col-sm-6"><h3 class="mb-0">Dashboard</h3></div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item"><a href="#">Accueil</a></li>
                   <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                 </ol>
               </div>
@@ -745,7 +295,7 @@
                 <div class="small-box text-bg-primary">
                   <div class="inner">
                     <h3>150</h3>
-                    <p>New Orders</p>
+                    <p>Etudiants</p>
                   </div>
                   <svg
                     class="small-box-icon"
@@ -762,7 +312,7 @@
                     href="#"
                     class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
                   >
-                    More info <i class="bi bi-link-45deg"></i>
+                    + info <i class="bi bi-link-45deg"></i>
                   </a>
                 </div>
                 <!--end::Small Box Widget 1-->
@@ -773,7 +323,7 @@
                 <div class="small-box text-bg-success">
                   <div class="inner">
                     <h3>53<sup class="fs-5">%</sup></h3>
-                    <p>Bounce Rate</p>
+                    <p>d'admis</p>
                   </div>
                   <svg
                     class="small-box-icon"
@@ -801,7 +351,7 @@
                 <div class="small-box text-bg-warning">
                   <div class="inner">
                     <h3>44</h3>
-                    <p>User Registrations</p>
+                    <p>nouveaux inscripts</p>
                   </div>
                   <svg
                     class="small-box-icon"
@@ -829,7 +379,7 @@
                 <div class="small-box text-bg-danger">
                   <div class="inner">
                     <h3>65</h3>
-                    <p>Unique Visitors</p>
+                    <p> Classes</p>
                   </div>
                   <svg
                     class="small-box-icon"
@@ -871,242 +421,7 @@
                 </div>
                 <!-- /.card -->
                 <!-- DIRECT CHAT -->
-                <div class="card direct-chat direct-chat-primary mb-4">
-                  <div class="card-header">
-                    <h3 class="card-title">Direct Chat</h3>
-                    <div class="card-tools">
-                      <span title="3 New Messages" class="badge text-bg-primary"> 3 </span>
-                      <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
-                        <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
-                        <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-tool"
-                        title="Contacts"
-                        data-lte-toggle="chat-pane"
-                      >
-                        <i class="bi bi-chat-text-fill"></i>
-                      </button>
-                      <button type="button" class="btn btn-tool" data-lte-toggle="card-remove">
-                        <i class="bi bi-x-lg"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <!-- /.card-header -->
-                  <div class="card-body">
-                    <!-- Conversations are loaded here -->
-                    <div class="direct-chat-messages">
-                      <!-- Message. Default to the start -->
-                      <div class="direct-chat-msg">
-                        <div class="direct-chat-infos clearfix">
-                          <span class="direct-chat-name float-start"> Alexander Pierce </span>
-                          <span class="direct-chat-timestamp float-end"> 23 Jan 2:00 pm </span>
-                        </div>
-                        <!-- /.direct-chat-infos -->
-                        <img
-                          class="direct-chat-img"
-                          src="../../dist/assets/img/user1-128x128.jpg"
-                          alt="message user image"
-                        />
-                        <!-- /.direct-chat-img -->
-                        <div class="direct-chat-text">
-                          Is this template really for free? That's unbelievable!
-                        </div>
-                        <!-- /.direct-chat-text -->
-                      </div>
-                      <!-- /.direct-chat-msg -->
-                      <!-- Message to the end -->
-                      <div class="direct-chat-msg end">
-                        <div class="direct-chat-infos clearfix">
-                          <span class="direct-chat-name float-end"> Sarah Bullock </span>
-                          <span class="direct-chat-timestamp float-start"> 23 Jan 2:05 pm </span>
-                        </div>
-                        <!-- /.direct-chat-infos -->
-                        <img
-                          class="direct-chat-img"
-                          src="../../dist/assets/img/user3-128x128.jpg"
-                          alt="message user image"
-                        />
-                        <!-- /.direct-chat-img -->
-                        <div class="direct-chat-text">You better believe it!</div>
-                        <!-- /.direct-chat-text -->
-                      </div>
-                      <!-- /.direct-chat-msg -->
-                      <!-- Message. Default to the start -->
-                      <div class="direct-chat-msg">
-                        <div class="direct-chat-infos clearfix">
-                          <span class="direct-chat-name float-start"> Alexander Pierce </span>
-                          <span class="direct-chat-timestamp float-end"> 23 Jan 5:37 pm </span>
-                        </div>
-                        <!-- /.direct-chat-infos -->
-                        <img
-                          class="direct-chat-img"
-                          src="../../dist/assets/img/user1-128x128.jpg"
-                          alt="message user image"
-                        />
-                        <!-- /.direct-chat-img -->
-                        <div class="direct-chat-text">
-                          Working with AdminLTE on a great new app! Wanna join?
-                        </div>
-                        <!-- /.direct-chat-text -->
-                      </div>
-                      <!-- /.direct-chat-msg -->
-                      <!-- Message to the end -->
-                      <div class="direct-chat-msg end">
-                        <div class="direct-chat-infos clearfix">
-                          <span class="direct-chat-name float-end"> Sarah Bullock </span>
-                          <span class="direct-chat-timestamp float-start"> 23 Jan 6:10 pm </span>
-                        </div>
-                        <!-- /.direct-chat-infos -->
-                        <img
-                          class="direct-chat-img"
-                          src="../../dist/assets/img/user3-128x128.jpg"
-                          alt="message user image"
-                        />
-                        <!-- /.direct-chat-img -->
-                        <div class="direct-chat-text">I would love to.</div>
-                        <!-- /.direct-chat-text -->
-                      </div>
-                      <!-- /.direct-chat-msg -->
-                    </div>
-                    <!-- /.direct-chat-messages-->
-                    <!-- Contacts are loaded here -->
-                    <div class="direct-chat-contacts">
-                      <ul class="contacts-list">
-                        <li>
-                          <a href="#">
-                            <img
-                              class="contacts-list-img"
-                              src="../../dist/assets/img/user1-128x128.jpg"
-                              alt="User Avatar"
-                            />
-                            <div class="contacts-list-info">
-                              <span class="contacts-list-name">
-                                Count Dracula
-                                <small class="contacts-list-date float-end"> 2/28/2023 </small>
-                              </span>
-                              <span class="contacts-list-msg"> How have you been? I was... </span>
-                            </div>
-                            <!-- /.contacts-list-info -->
-                          </a>
-                        </li>
-                        <!-- End Contact Item -->
-                        <li>
-                          <a href="#">
-                            <img
-                              class="contacts-list-img"
-                              src="../../dist/assets/img/user7-128x128.jpg"
-                              alt="User Avatar"
-                            />
-                            <div class="contacts-list-info">
-                              <span class="contacts-list-name">
-                                Sarah Doe
-                                <small class="contacts-list-date float-end"> 2/23/2023 </small>
-                              </span>
-                              <span class="contacts-list-msg"> I will be waiting for... </span>
-                            </div>
-                            <!-- /.contacts-list-info -->
-                          </a>
-                        </li>
-                        <!-- End Contact Item -->
-                        <li>
-                          <a href="#">
-                            <img
-                              class="contacts-list-img"
-                              src="../../dist/assets/img/user3-128x128.jpg"
-                              alt="User Avatar"
-                            />
-                            <div class="contacts-list-info">
-                              <span class="contacts-list-name">
-                                Nadia Jolie
-                                <small class="contacts-list-date float-end"> 2/20/2023 </small>
-                              </span>
-                              <span class="contacts-list-msg"> I'll call you back at... </span>
-                            </div>
-                            <!-- /.contacts-list-info -->
-                          </a>
-                        </li>
-                        <!-- End Contact Item -->
-                        <li>
-                          <a href="#">
-                            <img
-                              class="contacts-list-img"
-                              src="../../dist/assets/img/user5-128x128.jpg"
-                              alt="User Avatar"
-                            />
-                            <div class="contacts-list-info">
-                              <span class="contacts-list-name">
-                                Nora S. Vans
-                                <small class="contacts-list-date float-end"> 2/10/2023 </small>
-                              </span>
-                              <span class="contacts-list-msg"> Where is your new... </span>
-                            </div>
-                            <!-- /.contacts-list-info -->
-                          </a>
-                        </li>
-                        <!-- End Contact Item -->
-                        <li>
-                          <a href="#">
-                            <img
-                              class="contacts-list-img"
-                              src="../../dist/assets/img/user6-128x128.jpg"
-                              alt="User Avatar"
-                            />
-                            <div class="contacts-list-info">
-                              <span class="contacts-list-name">
-                                John K.
-                                <small class="contacts-list-date float-end"> 1/27/2023 </small>
-                              </span>
-                              <span class="contacts-list-msg"> Can I take a look at... </span>
-                            </div>
-                            <!-- /.contacts-list-info -->
-                          </a>
-                        </li>
-                        <!-- End Contact Item -->
-                        <li>
-                          <a href="#">
-                            <img
-                              class="contacts-list-img"
-                              src="../../dist/assets/img/user8-128x128.jpg"
-                              alt="User Avatar"
-                            />
-                            <div class="contacts-list-info">
-                              <span class="contacts-list-name">
-                                Kenneth M.
-                                <small class="contacts-list-date float-end"> 1/4/2023 </small>
-                              </span>
-                              <span class="contacts-list-msg"> Never mind I found... </span>
-                            </div>
-                            <!-- /.contacts-list-info -->
-                          </a>
-                        </li>
-                        <!-- End Contact Item -->
-                      </ul>
-                      <!-- /.contacts-list -->
-                    </div>
-                    <!-- /.direct-chat-pane -->
-                  </div>
-                  <!-- /.card-body -->
-                  <div class="card-footer">
-                    <form action="#" method="post">
-                      <div class="input-group">
-                        <input
-                          type="text"
-                          name="message"
-                          placeholder="Type Message ..."
-                          class="form-control"
-                        />
-                        <span class="input-group-append">
-                          <button type="button" class="btn btn-primary">Send</button>
-                        </span>
-                      </div>
-                    </form>
-                  </div>
-                  <!-- /.card-footer-->
                 </div>
-                <!-- /.direct-chat -->
-              </div>
               <!-- /.Start col -->
               <!-- Start col -->
               <div class="col-lg-5 connectedSortable">
@@ -1157,14 +472,14 @@
       <!--begin::Footer-->
       <footer class="app-footer">
         <!--begin::To the end-->
-        <div class="float-end d-none d-sm-inline">Anything you want</div>
+        <div class="float-end d-none d-sm-inline">Le savoir est un trésor qui suit son propriétaire partout.</div>
         <!--end::To the end-->
         <!--begin::Copyright-->
         <strong>
-          Copyright &copy; 2014-2024&nbsp;
-          <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+          Copyright &copy; 2024-2025&nbsp;
+          <a href="https://adminlte.io" class="text-decoration-none">Chancelierkouame@</a>.
         </strong>
-        All rights reserved.
+        tous les droits ont réservés.
         <!--end::Copyright-->
       </footer>
       <!--end::Footer-->
