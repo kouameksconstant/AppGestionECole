@@ -44,7 +44,13 @@
         <i class="fas fa-list"></i> Voir les classes existantes
     </a>
 </div>
-
+<!-- Bouton Retour à la liste des étudiants -->
+<div class="text-center mt-4">
+            <a href="{{ route('students.index') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Retour à la liste des étudiants
+            </a>
+        </div>
+    </div>
         </div>
     </div>
 @endsection

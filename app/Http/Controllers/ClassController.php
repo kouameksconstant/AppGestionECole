@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -133,5 +132,20 @@ class ClassController extends Controller
 
         // Retourner avec un message de succès
         return redirect()->route('classes.index')->with('success', 'Classe supprimée avec succès!');
+    }
+
+    /**
+     * Affiche les détails d'une classe et ses étudiants associés.
+     *
+     * @param  int  $id L'identifiant de la classe
+     * @return \Illuminate\View\View
+     */
+    public function show($id)
+    {
+        $class = Classe::findOrFail($id);  // Récupérer la classe par son ID
+        $students = $class->students;  // Récupérer les étudiants associés à cette classe
+
+        // Retourner la vue avec les données de la classe et des étudiants
+        return view('adminlte.classes.show', compact('class', 'students'));
     }
 }

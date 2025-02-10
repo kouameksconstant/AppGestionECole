@@ -277,7 +277,7 @@
             />
             <!--end::Brand Image-->
             <!--begin::Brand Text-->
-            <span class="brand-text fw-light">AdminLTE 4</span>
+            <span class="brand-text fw-light">ESGS</span>
             <!--end::Brand Text-->
           </a>
           <!--end::Brand Link-->

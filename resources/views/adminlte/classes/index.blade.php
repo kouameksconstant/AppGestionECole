@@ -26,7 +26,11 @@
                                 <i class="fas fa-graduation-cap fa-3x text-primary"></i>
                             </div>
                             <h5 class="card-title text-uppercase font-weight-bold">{{ $class->name }}</h5>
-                            <p class="card-text text-muted">{{ $class->description }}</p>
+                            
+                            <!-- Description de la Classe (si elle existe) -->
+                            <p class="card-text text-muted">
+                                {{ $class->description ?? 'Aucune description disponible pour cette classe.' }}
+                            </p>
 
                             <!-- Boutons d'action -->
                             <div class="d-flex justify-content-center gap-2">
@@ -41,6 +45,13 @@
                                     </button>
                                 </form>
                             </div>
+
+                            <!-- Bouton pour Voir les Étudiants dans la classe -->
+                            <div class="mt-3">
+                                <a href="{{ route('classes.show', $class->id) }}" class="btn btn-info btn-sm">
+                                    <i class="fas fa-users"></i> Voir les étudiants
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -51,6 +62,13 @@
         <div class="text-center mt-4">
             <a href="{{ route('classes.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Ajouter une nouvelle classe
+            </a>
+        </div>
+
+        <!-- Bouton Retour à la liste des étudiants -->
+        <div class="text-center mt-4">
+            <a href="{{ route('students.index') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Retour à la liste des étudiants
             </a>
         </div>
     </div>

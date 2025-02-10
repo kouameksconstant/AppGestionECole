@@ -82,26 +82,35 @@ class StudentController extends Controller
     /**
      * Met à jour un étudiant dans la base de données.
      */
-    public function update(Request $request, Student $student)
-    {
-        // Validation des données
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'email' => 'required|email|unique:students,email,' . $student->id,
-            'tel_perso' => 'nullable|regex:/^[0-9]{10}$/',
-            'birth_date' => 'required|date',
-            'lieu_naissance' => 'required|string|max:255',
-            'classe_id' => 'nullable|exists:classes,id'
-        ]);
+    public function update(Request $request, $id)
+{
+    // Valider les données
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'prenom' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'tel_perso' => 'nullable|string|max:20',
+        'birth_date' => 'nullable|date',
+        'lieu_naissance' => 'nullable|string|max:255',
+    ]);
 
-        try {
-            $student->update($validated);
-            return redirect()->route('students.index')->with('success', 'Étudiant mis à jour avec succès.');
-        } catch (QueryException $e) {
-            return back()->with('error', 'Une erreur s\'est produite lors de la mise à jour.');
-        }
-    }
+    // Trouver l'étudiant par ID
+    $student = Student::findOrFail($id);
+
+    // Mettre à jour les informations de l'étudiant
+    $student->update([
+        'name' => $request->name,
+        'prenom' => $request->prenom,
+        'email' => $request->email,
+        'tel_perso' => $request->tel_perso,
+        'birth_date' => $request->birth_date,
+        'lieu_naissance' => $request->lieu_naissance,
+    ]);
+
+    // Retourner vers la liste avec un message de succès
+    return redirect()->route('students.index')->with('success', 'Étudiant mis à jour avec succès!');
+}
+
 
     /**
      * Supprime un étudiant de la base de données.
@@ -115,59 +124,36 @@ class StudentController extends Controller
             return back()->with('error', 'Impossible de supprimer cet étudiant.');
         }
     }
-    public function assigneClass()
-{
-    // Récupérer toutes les classes disponibles
-    $classes = Classe::all(); 
 
-    // Récupérer tous les étudiants non encore assignés à une classe
-    $students = Student::whereNull('classe_id')->get();
+    /**
+     * Affiche le formulaire d'assignation de classe à un étudiant.
+     */
+    public function assignClass()
+    {
+        $classes = Classe::all(); // Récupérer toutes les classes disponibles
+        $students = Student::whereNull('class_id')->get(); // Récupérer tous les étudiants non encore assignés à une classe
+        return view('adminlte.classes.assign-class', compact('students', 'classes')); // Mise à jour du chemin
+    }
 
-    // Retourner la vue avec les étudiants et les classes
-    return view('adminlte.students.assign-class', compact('students', 'classes'));
-}
-public function storeAssignedClass(Request $request)
+    /**
+     * Enregistre l'assignation de la classe à l'étudiant.
+     */
+    public function storeAssignedClass(Request $request)
 {
-    // Validation des données du formulaire
+    // Validation des données
     $validated = $request->validate([
-        'student_id' => 'required|exists:students,id',  // L'étudiant doit exister
-        'classe_id' => 'required|exists:classes,id',   // La classe doit exister
-    ]);
-
-    // Trouver l'étudiant et lui assigner la classe
-    $student = Student::find($validated['student_id']);
-    $student->classe_id = $validated['classe_id'];
-    $student->save();  // Sauvegarder l'étudiant avec la nouvelle classe
-
-
-    // Rediriger vers la liste des étudiants avec un message de succès
-    return redirect()->route('students.index')->with('success', 'L\'étudiant a été assigné à une classe avec succès!');
-}
-
-public function assignClass(Request $request)
-{
-    $request->validate([
-        'class_id' => 'required|exists:classes,id',
         'student_id' => 'required|exists:students,id',
+        'class_id' => 'required|exists:classes,id',
     ]);
 
-    $student = Student::find($request->student_id);
-    $student->class_id = $request->class_id;
+    // Assigner l'étudiant à la classe
+    $student = Student::find($validated['student_id']);
+    $student->class_id = $validated['class_id'];
     $student->save();
 
-    return redirect()->back()->with('success', 'L\'étudiant a été assigné avec succès !');
-}
-public function showAssignForm()
-{
-    // Récupère toutes les classes
-    $classes = Classe::all(); 
-
-    // Récupère tous les étudiants sans classe assignée (si applicable)
-    $students = Student::whereNull('class_id')->get(); 
-
-    return view('adminlte.students.assign-class', compact('classes', 'students'));
+    // Retourner un message de succès et rediriger vers l'index des étudiants
+    return redirect()->route('students.index')->with('success', 'Étudiant assigné à la classe avec succès.');
 }
 
-
-
+    
 }
