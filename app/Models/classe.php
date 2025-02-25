@@ -23,4 +23,9 @@ class Classe extends Model
     {
         return $this->hasMany(Student::class, 'class_id');
     }
+    public function matieres()
+{
+    return $this->belongsToMany(Matiere::class, 'professeur_matiere')->withPivot('professeur_id')->withTimestamps();
+}
+
 }

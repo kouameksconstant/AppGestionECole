@@ -185,12 +185,13 @@
                       <p>Gestion Etudiants</p>
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a href="./index2.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Gestion Professeur</p>
+                                  <li class="nav-item">
+                    <a href="{{ route('professeurs.index') }}" class="nav-link">
+                        <i class="nav-icon bi bi-circle"></i>
+                        <p>Gestion Professeurs</p>
                     </a>
-                  </li>
+                </li>
+
                   <li class="nav-item">
                     <a href="./index3.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
