@@ -1,73 +1,72 @@
 @extends('adminlte.layout')
 
 @section('content')
-<div class="container mt-4">
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
+<div class="container mt-5">
+    <!-- Barre d'action en haut -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left fa-lg"></i> Retour
+        </a>
+        <h2 class="text-primary fw-bold">Comptabilité des Professeurs</h2>
+        <div></div>
+    </div>
+
+    <!-- Description justifiée -->
+    <div class="text-center mb-5" style="text-align: justify;">
+        <p class="fs-5 text-muted">
+            Cette page récapitule pour chaque professeur le nombre d'heures qui lui ont été assignées, les heures déjà réalisées ainsi que le total des heures d'absence. Le bulletin de paie est généré en fonction du nombre d'heures effectuées.
+        </p>
+        <hr class="w-50 mx-auto">
+    </div>
+
+    <!-- Tableau des professeurs -->
+    <div class="card shadow-lg mb-5">
+        <div class="card-header bg-gradient-success text-white py-3">
+            <h5 class="card-title mb-0">Récapitulatif des Heures par Professeur</h5>
         </div>
-    @endif
-
-    <h2 class="mb-4 text-center text-primary">Liste des Heures pour {{ $professeur->nom }} {{ $professeur->prenom }}</h2>
-    <p class="text-center">Nombre total d'heures assignées : {{ $heures->sum('heure') }}</p>
-    
-    <a href="{{ route('heures.create', ['professeur' => $professeur->id]) }}" class="btn btn-success mb-3">
-        <i class="fas fa-plus-circle"></i> Ajouter une Heure
-    </a>
-
-    <div class="card shadow-lg">
         <div class="card-body">
-            <table class="table table-bordered table-hover table-striped" id="heuresTable">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>Matière</th>
-                        <th>Heure</th>
-                        <th>Date Début</th>
-                        <th>Date Fin</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($heures as $heure)
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center">
+                    <thead class="table-dark">
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $heure->matiere ? $heure->matiere->nom : 'Matière non définie' }}</td>
-                            <td>{{ $heure->heure }}</td>
-                            <td>{{ \Carbon\Carbon::parse($heure->date_debut)->format('d/m/Y') }}</td>
-                            <td>{{ \Carbon\Carbon::parse($heure->date_fin)->format('d/m/Y') }}</td>
-                            <td class="text-center">
-                                <a href="{{ route('heures.edit', ['professeur' => $professeur->id, 'heure' => $heure->id]) }}" class="btn btn-warning btn-sm">
-                                    <i class="fas fa-edit"></i> Modifier
+                            <th>Professeur</th>
+                            <th>Heures Assignées</th>
+                            <th>Heures Réalisées</th>
+                            <th>Heures d'Absence</th>
+                            <th>Bulletin de Paie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($professeurs as $professeur)
+                        <tr>
+                            <td class="fw-bold">{{ $professeur->nom }} {{ $professeur->prenom }}</td>
+                            <td>
+                                {{-- Somme des nb_heures de la relation matieres --}}
+                                {{ $professeur->matieres->sum(fn($matiere) => $matiere->pivot->nb_heures) }} h
+                            </td>
+                            <td>
+                                {{-- Somme des heures réalisées (relation heures) --}}
+                                {{ $professeur->heures->sum('heure') }} h
+                            </td>
+                            <td>
+                                {{-- Somme des heures d'absence (relation absences) --}}
+                                {{ $professeur->absences->sum('duree') }} h
+                            </td>
+                            <td>
+                                <a href="{{ route('professeur.payslip', $professeur->id) }}" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-file-invoice-dollar"></i> Générer
                                 </a>
-                                <a href="{{ route('heures.show', ['professeur' => $professeur->id, 'heure' => $heure->id]) }}" class="btn btn-info btn-sm">
-                                    <i class="fas fa-eye"></i> Détails
-                                </a>
-                                <form action="{{ route('heures.destroy', ['professeur' => $professeur->id, 'heure' => $heure->id]) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette heure ?')">
-                                        <i class="fas fa-trash-alt"></i> Supprimer
-                                    </button>
-                                </form>
                             </td>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagination -->
+            <div class="d-flex justify-content-center mt-4">
+                {{ $professeurs->links() }}
+            </div>
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function() {
-        $('#heuresTable').DataTable({
-            responsive: true,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
-        });
-    });
-</script>
 @endsection

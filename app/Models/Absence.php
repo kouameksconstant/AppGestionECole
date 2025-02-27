@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CahierTexte extends Model
+class Absence extends Model
 {
     use HasFactory;
 
@@ -12,8 +13,11 @@ class CahierTexte extends Model
         'professeur_id',
         'matiere_id',
         'classe_id',
-        'resume_cours',
-        'heures_effectuees',
+        'date_absence',
+        'duree',
+        'motif',
+        'statut',
+        'justificatif'
     ];
 
     public function professeur()

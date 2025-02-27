@@ -31,6 +31,8 @@ class MatiereController extends Controller
             'matiere_id' => 'required|exists:matieres,id',
             'classe_id' => 'required|exists:classes,id',
             'nb_heures' => 'required|integer|min:1',
+            'date_debut' => 'required|date',
+            'date_fin' => 'required|date|after_or_equal:date_debut',
         ]);
 
         try {
@@ -45,12 +47,14 @@ class MatiereController extends Controller
                 return redirect()->back()->with('error', 'Cette assignation existe déjà.');
             }
 
-            // Ajouter l'assignation
+            // Ajouter l'assignation avec les dates
             DB::table('professeur_matiere')->insert([
                 'professeur_id' => $request->professeur_id,
                 'matiere_id' => $request->matiere_id,
                 'classe_id' => $request->classe_id,
                 'nb_heures' => $request->nb_heures,
+                'date_debut' => $request->date_debut,
+                'date_fin' => $request->date_fin,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -68,16 +72,27 @@ class MatiereController extends Controller
             'matiere_id' => 'required|exists:matieres,id',
             'classe_id' => 'required|exists:classes,id',
             'nb_heures' => 'required|integer|min:1',
+            'date_debut' => 'required|date',
+            'date_fin' => 'required|date|after_or_equal:date_debut',
         ]);
 
         try {
-            DB::table('professeur_matiere')
+            $updated = DB::table('professeur_matiere')
                 ->where('professeur_id', $request->professeur_id)
                 ->where('matiere_id', $request->matiere_id)
                 ->where('classe_id', $request->classe_id)
-                ->update(['nb_heures' => $request->nb_heures, 'updated_at' => now()]);
+                ->update([
+                    'nb_heures' => $request->nb_heures,
+                    'date_debut' => $request->date_debut,
+                    'date_fin' => $request->date_fin,
+                    'updated_at' => now(),
+                ]);
 
-            return redirect()->back()->with('success', 'Heures mises à jour avec succès !');
+            if ($updated) {
+                return redirect()->back()->with('success', 'Assignation mise à jour avec succès !');
+            } else {
+                return redirect()->back()->with('error', 'Aucune modification détectée.');
+            }
         } catch (Exception $e) {
             return redirect()->back()->with('error', 'Erreur lors de la mise à jour : ' . $e->getMessage());
         }

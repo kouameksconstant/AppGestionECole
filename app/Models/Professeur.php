@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,11 +26,22 @@ class Professeur extends Model
     }
 
     // Relation plusieurs-à-plusieurs avec les matières
-    
-public function matieres()
-{
-    return $this->belongsToMany(Matiere::class, 'professeur_matiere')
-                ->withPivot('classe_id', 'nb_heures','heures_effectuees') // Ajout de nb_heures
-                ->withTimestamps();
-}
+    public function matieres()
+    {
+        return $this->belongsToMany(Matiere::class, 'professeur_matiere')
+                    ->withPivot('classe_id', 'nb_heures', 'heures_effectuees', 'date_debut', 'date_fin')
+                    ->withTimestamps();
+    }
+
+    // Relation avec les cahiers de textes
+    public function cahierTextes()
+    {
+        return $this->hasMany(CahierTexte::class);
+    }
+
+    // Relation avec les absences
+    public function absences()
+    {
+        return $this->hasMany(Absence::class);
+    }
 }
