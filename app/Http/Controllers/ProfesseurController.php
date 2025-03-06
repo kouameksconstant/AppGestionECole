@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Professeur;
-use App\Models\Absence; // Assurez-vous que le modèle Absence existe et que ses relations sont définies
+use App\Models\Absence;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade as PDF; // Si tu veux générer un PDF, assure-toi que le package DomPDF est installé
 
 class ProfesseurController extends Controller
 {
@@ -138,5 +139,37 @@ class ProfesseurController extends Controller
         $professeur->delete();
         return redirect()->route('professeurs.index')
                          ->with('success', 'Professeur supprimé avec succès !');
+    }
+
+    // Méthode pour générer la fiche de paie d'un professeur
+    public function generatePayslip($id)
+    {
+        $professeur = Professeur::findOrFail($id);
+
+        // Données pour la fiche de paie
+        $payslipData = [
+            'nom' => $professeur->nom,
+            'prenom' => $professeur->prenom,
+            'email' => $professeur->email,
+            'montant' => $this->calculateSalary($professeur),
+            'date' => now()->format('d/m/Y'),
+        ];
+
+        // Générer le PDF (si tu veux générer un PDF)
+        $pdf = PDF::loadView('professeurs.payslip', compact('payslipData'));
+
+        // Retourner le PDF en téléchargement
+        return $pdf->download('payslip_' . $professeur->prenom . '_' . $professeur->nom . '.pdf');
+
+        // Si tu veux juste afficher la fiche de paie sous forme de vue HTML :
+        // return view('professeurs.payslip', compact('payslipData'));
+    }
+
+    // Méthode pour calculer le salaire d'un professeur (à personnaliser selon tes besoins)
+    private function calculateSalary($professeur)
+    {
+        // Exemple basique de calcul : un salaire fixe pour l'exemple
+        // Tu devras ajuster cela en fonction des absences, des heures de travail, etc.
+        return 1000; // Exemple d'un salaire fixe de 1000 €
     }
 }

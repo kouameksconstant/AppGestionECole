@@ -82,3 +82,4 @@ Route::post('/professeur/{id}/absence', [ProfesseurController::class, 'marquerAb
 Route::get('/absences', [AbsenceController::class, 'index'])->name('absences.index');
 Route::get('/absences/detail/{professeur}/{matiere}/{classe}', [AbsenceController::class, 'detail'])->name('absences.detail');
 Route::post('/professeur/{id}/absence', [ProfesseurController::class, 'marquerAbsence'])->name('professeur.absence');
+Route::get('/professeur/{id}/payslip', [ProfesseurController::class, 'generatePayslip'])->name('professeur.payslip');

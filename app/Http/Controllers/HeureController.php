@@ -13,10 +13,10 @@ class HeureController extends Controller
      */
     public function index()
     {
-        $heures = Heure::with('matiere')->get(); // Charge la relation matiere pour éviter l'erreur
-        $professeur = Professeur::first(); // Exemple : Récupère le premier professeur (modifiez si nécessaire)
+        $heures = Heure::with('matiere')->get(); // Charge la relation matiere
+        $professeurs = Professeur::with(['matieres', 'heures'])->paginate(10); // Ajout de la pagination
 
-        return view('heures.index', compact('heures', 'professeur'));
+        return view('heures.index', compact('heures', 'professeurs'));
     }
 
     /**
